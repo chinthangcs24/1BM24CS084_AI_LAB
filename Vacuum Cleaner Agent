@@ -1,0 +1,28 @@
+def vacuum_agent(room):
+    position = 0
+
+    print("Initial room:", room)
+
+    for i in range(len(room)):
+        if room[position] == 1:
+            print("Room", position + 1, "is Dirty. Cleaning...")
+            room[position] = 0
+        else:
+            print("Room", position + 1, "is already Clean.")
+
+        if position < len(room) - 1:
+            print("Moving Right")
+            position += 1
+
+    print("All rooms cleaned!")
+    print("Final room:", room)
+
+room = []
+
+n = int(input("Enter number of rooms: "))
+
+for i in range(n):
+    status = int(input(f"Enter status of room {i+1} (1=Dirty, 0=Clean): "))
+    room.append(status)
+
+vacuum_agent(room)
