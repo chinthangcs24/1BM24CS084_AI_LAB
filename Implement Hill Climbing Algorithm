@@ -1,0 +1,28 @@
+def objective(x):
+    return -(x - 5) ** 2 + 25
+
+def hill_climbing(start):
+    current = start
+    step = 0.1
+
+    while True:
+        left = current - step
+        right = current + step
+
+        if objective(left) > objective(current):
+            current = left
+
+        elif objective(right) > objective(current):
+            current = right
+
+        else:
+            break
+
+    return current, objective(current)
+
+start = float(input("Enter starting value: "))
+
+best_x, best_value = hill_climbing(start)
+
+print("Best solution:", best_x)
+print("Maximum value:", best_value)
