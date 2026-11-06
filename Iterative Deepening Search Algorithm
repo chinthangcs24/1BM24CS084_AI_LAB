@@ -1,0 +1,50 @@
+def depth_limited_search(graph, node, goal, depth, path):
+    if node == goal:
+        return path
+
+    if depth == 0:
+        return None
+
+    for neighbor in graph.get(node, []):
+        if neighbor not in path:
+            result = depth_limited_search(
+                graph, neighbor, goal, depth - 1,
+                path + [neighbor]
+            )
+
+            if result:
+                return result
+
+    return None
+
+def iterative_deepening(graph, start, goal):
+    for depth in range(100):
+        result = depth_limited_search(
+            graph, start, goal, depth, [start]
+        )
+
+        if result:
+            return result
+
+    return None
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F', 'G'],
+    'D': [],
+    'E': ['H'],
+    'F': [],
+    'G': [],
+    'H': []
+}
+
+start = input("Enter start node: ").upper()
+goal = input("Enter goal node: ").upper()
+
+result = iterative_deepening(graph, start, goal)
+
+if result:
+    print("Path found:", result)
+else:
+    print("Goal not found")
