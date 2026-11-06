@@ -1,0 +1,32 @@
+from itertools import product
+
+def entails(kb, query, symbols):
+    for values in product([False, True], repeat=len(symbols)):
+        model = dict(zip(symbols, values))
+
+        if kb(model) and not query(model):
+            return False
+
+    return True
+
+# Propositional symbols
+# P = It is raining
+# Q = The ground is wet
+
+symbols = ['P', 'Q']
+
+# Knowledge Base: P implies Q
+def knowledge_base(m):
+    return (not m['P']) or m['Q']
+
+# Query: Ground is wet
+def query(m):
+    return m['Q']
+
+print("Knowledge Base: P -> Q")
+print("Query: Q")
+
+if entails(knowledge_base, query, symbols):
+    print("The knowledge base entails the query.")
+else:
+    print("The knowledge base does NOT entail the query.")
